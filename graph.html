@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Trend Graph</title>
+
+    <style>
+        /* Basic styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-top: 20px;
+        }
+
+        /* Styling for the image */
+        img {
+            max-width: 100%; /* Ensures the image is responsive */
+            height: auto;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        /* Styling for the back link */
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #007bff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+
+        a:hover {
+            background-color: #e2e6ea;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 767px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            a {
+                font-size: 14px;
+                padding: 8px 15px;
+            }
+        }
+
+        /* Extra small devices (portrait phones, less than 576px) */
+        @media (max-width: 575px) {
+            h1 {
+                font-size: 20px;
+            }
+
+            a {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Temperature Trend Graph</h1>
+    <img src="{{ url_for('static', filename='temperature_trend.png') }}" alt="Temperature Trend Graph">
+    <br><br>
+    <a href="/">Back to Dashboard</a>
+</body>
+</html>

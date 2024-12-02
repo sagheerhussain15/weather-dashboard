@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+
+    <!-- Bootstrap CSS for styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Adding a background image to the body */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://www.shutterstock.com/image-vector/realistic-illustration-autumn-night-rain-600nw-1932348497.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent white background */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .weather-info {
+            margin-top: 30px;
+        }
+
+        .weather-info h2 {
+            color: #333;
+        }
+
+        .weather-info p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .weather-info img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 767px) {
+            .container {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .form-group {
+                margin-bottom: 12px;
+            }
+
+            label {
+                font-size: 14px;
+            }
+
+            input[type="text"] {
+                font-size: 14px;
+                padding: 12px;
+            }
+
+            button[type="submit"] {
+                padding: 12px;
+                font-size: 16px;
+            }
+
+            .weather-info h2 {
+                font-size: 20px;
+            }
+
+            .weather-info p {
+                font-size: 16px;
+            }
+
+            footer {
+                font-size: 12px;
+            }
+        }
+
+        /* Extra small devices (portrait phones, less than 576px) */
+        @media (max-width: 575px) {
+            .container {
+                margin: 10px auto;
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .form-group {
+                margin-bottom: 10px;
+            }
+
+            input[type="text"] {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            button[type="submit"] {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .weather-info h2 {
+                font-size: 18px;
+            }
+
+            .weather-info p {
+                font-size: 14px;
+            }
+
+            footer {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Weather Dashboard</h1>
+
+        <!-- Form for city and country input -->
+        <form method="POST" action="{{ url_for('dashboard') }}">
+            <div class="form-group">
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" required value="{{ request.form['city'] if request.form.get('city') else '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="country">Country (ISO code):</label>
+                <input type="text" id="country" name="country" required value="{{ request.form['country'] if request.form.get('country') else '' }}">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Get Weather</button>
+        </form>
+
+        <!-- Display weather information -->
+        {% if weather_data %}
+        <div class="weather-info">
+            <h2>Weather in {{ weather_data['country_name'] }}</h2>
+            <p><strong>Temperature:</strong> {{ weather_data['temperature'] }}°C</p>
+            <p><strong>Humidity:</strong> {{ weather_data['humidity'] }}%</p>
+            <p><strong>Pressure:</strong> {{ weather_data['pressure'] }} hPa</p>
+            <p><strong>Condition:</strong> {{ weather_data['description'] }}</p>
+
+            <!-- Display the weather graph -->
+            <img src="data:image/png;base64,{{ weather_graph }}" alt="Weather Trends">
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>Powered by Flask and OpenWeatherMap</p>
+    </footer>
+
+    <!-- Bootstrap JS for interactive components -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
